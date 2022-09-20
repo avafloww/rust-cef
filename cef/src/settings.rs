@@ -67,7 +67,7 @@ impl<'a> Default for Settings<'a> {
 impl<'a> Settings<'a> {
     pub(crate) fn to_cef(&self) -> cef_settings_t {
         cef_settings_t {
-            size: std::mem::size_of::<cef_settings_t>(),
+            size: std::mem::size_of::<cef_settings_t>() as u64,
             no_sandbox: self.no_sandbox as c_int,
             browser_subprocess_path: CefString::convert_str_to_cef(self.browser_subprocess_path),
             framework_dir_path: CefString::convert_str_to_cef(self.framework_dir_path),
@@ -80,7 +80,7 @@ impl<'a> Settings<'a> {
             persist_session_cookies: self.persist_session_cookies as c_int,
             persist_user_preferences: self.persist_user_preferences as c_int,
             user_agent: CefString::convert_str_to_cef(self.user_agent),
-            product_version: CefString::convert_str_to_cef(self.product_version),
+            // product_version: CefString::convert_str_to_cef(self.product_version),
             locale: CefString::convert_str_to_cef(self.locale),
             log_file: CefString::convert_str_to_cef(self.log_file),
             log_severity: self.log_severity,
@@ -90,10 +90,18 @@ impl<'a> Settings<'a> {
             pack_loading_disabled: self.pack_loading_disabled as c_int,
             remote_debugging_port: self.remote_debugging_port.unwrap_or(0),
             uncaught_exception_stack_size: self.uncaught_exception_stack_size.unwrap_or(0),
-            ignore_certificate_errors: self.ignore_certificate_errors as c_int,
-            enable_net_security_expiration: self.enable_net_security_expiration as c_int,
+            // ignore_certificate_errors: self.ignore_certificate_errors as c_int,
+            // enable_net_security_expiration: self.enable_net_security_expiration as c_int,
             background_color: self.background_color,
             accept_language_list: CefString::convert_str_to_cef(self.accept_language_list),
+
+            // @TODO
+            chrome_runtime: 0,
+            cookieable_schemes_exclude_defaults: 0,
+            cookieable_schemes_list: CefString::convert_str_to_cef(Some("")),
+            main_bundle_path: CefString::convert_str_to_cef(Some("")),
+            root_cache_path: CefString::convert_str_to_cef(Some("")),
+            user_agent_product: CefString::convert_str_to_cef(Some("")),
         }
     }
 }

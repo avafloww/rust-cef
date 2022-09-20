@@ -192,6 +192,10 @@ impl<T: DisplayHandler> ToCef<cef_display_handler_t> for Arc<T> {
                 on_loading_progress_change: Some(
                     DisplayHandlerWrapper::<T>::on_loading_progress_change,
                 ),
+
+                // @TODO
+                on_cursor_change: None,
+                on_media_access_change: None,
             },
             internal: self.clone(),
         })

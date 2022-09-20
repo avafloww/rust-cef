@@ -149,14 +149,22 @@ impl BrowserHost {
         if let Some(func) = self.ptr.as_ref().find {
             let search_text = CefString::from_str(search_text);
             unsafe {
+                // @TODO
                 func(
                     self.ptr.get(),
-                    identifier,
                     &search_text.into_cef(),
+                    identifier,
                     forward as i32,
                     match_case as i32,
-                    find_next as i32,
                 )
+                // func(
+                // self.ptr.get(),
+                // identifier,
+                // &search_text.into_cef(),
+                // forward as i32,
+                // match_case as i32,
+                // find_next as i32,
+                // )
             }
         }
     }
@@ -197,19 +205,21 @@ impl BrowserHost {
     //    ) {
     //    }
 
-    pub fn set_mouse_cursor_change_disabled(&self, disabled: bool) {
-        if let Some(func) = self.ptr.as_ref().set_mouse_cursor_change_disabled {
-            unsafe { func(self.ptr.get(), disabled as i32) }
-        }
-    }
+    // @TODO
+    // pub fn set_mouse_cursor_change_disabled(&self, disabled: bool) {
+    // if let Some(func) = self.ptr.as_ref().set_mouse_cursor_change_disabled {
+    // unsafe { func(self.ptr.get(), disabled as i32) }
+    // }
+    // }
 
-    pub fn is_mouse_cursor_change_disabled(&self) -> bool {
-        if let Some(func) = self.ptr.as_ref().is_mouse_cursor_change_disabled {
-            unsafe { func(self.ptr.get()) != 0 }
-        } else {
-            false
-        }
-    }
+    // @TODO
+    // pub fn is_mouse_cursor_change_disabled(&self) -> bool {
+    // if let Some(func) = self.ptr.as_ref().is_mouse_cursor_change_disabled {
+    // unsafe { func(self.ptr.get()) != 0 }
+    // } else {
+    // false
+    // }
+    // }
 
     pub fn replace_misspelling(&self, word: &str) {
         if let Some(func) = self.ptr.as_ref().replace_misspelling {

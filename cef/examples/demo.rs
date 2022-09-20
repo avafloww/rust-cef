@@ -1,5 +1,3 @@
-#![feature(async_await)]
-
 use cef::{
     create_browser_sync, Browser, BrowserSettings, CefRect, PaintElementType, RenderHandler,
     Settings, WindowInfo,
@@ -68,7 +66,7 @@ fn main() {
     let mut settings = Settings::default();
     // settings.log_severity = cef_log_severity_t_LOGSEVERITY_VERBOSE;
     settings.remote_debugging_port = Some(9876);
-    settings.windowless_rendering_enabled = true;
+    // settings.windowless_rendering_enabled = true;
     settings.multi_threaded_message_loop = true;
 
     cef::initialize(settings, &app);

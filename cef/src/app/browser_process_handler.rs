@@ -88,13 +88,17 @@ impl<T: BrowserProcessHandler> ToCef<cef_browser_process_handler_t> for Arc<T> {
                 on_before_child_process_launch: Some(
                     BrowserProcessHandlerWrapper::<T>::on_before_child_process_launch,
                 ),
-                on_render_process_thread_created: Some(
-                    BrowserProcessHandlerWrapper::<T>::on_render_process_thread_created,
-                ),
-                get_print_handler: Some(BrowserProcessHandlerWrapper::<T>::get_print_handler),
-                on_schedule_message_pump_work: Some(
-                    BrowserProcessHandlerWrapper::<T>::on_schedule_message_pump_work,
-                ),
+                // on_render_process_thread_created: Some(
+                // BrowserProcessHandlerWrapper::<T>::on_render_process_thread_created,
+                // ),
+                // get_print_handler: Some(BrowserProcessHandlerWrapper::<T>::get_print_handler),
+                // on_schedule_message_pump_work: Some(
+                // BrowserProcessHandlerWrapper::<T>::on_schedule_message_pump_work,
+                // ),
+
+                // @TODO
+                get_default_client: None,
+                on_schedule_message_pump_work: None,
             },
             internal: self.clone(),
         })

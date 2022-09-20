@@ -1,6 +1,6 @@
 use crate::types::string::CefString;
 use crate::WindowInfo;
-use cef_sys::cef_window_info_t;
+use cef_sys::{_cef_rect_t, cef_window_info_t};
 use std::ffi::CString;
 use std::os::raw::c_char;
 use std::ptr::null_mut;
@@ -46,15 +46,17 @@ impl<'a> WindowInfo<'a> {
     pub(crate) fn to_cef(&self) -> cef_window_info_t {
         cef_window_info_t {
             window_name: CefString::convert_str_to_cef(self.window_name),
-            x: self.x,
-            y: self.y,
-            width: self.width,
-            height: self.height,
             parent_window: self.parent_window,
             windowless_rendering_enabled: self.windowless_rendering_enabled as i32,
             shared_texture_enabled: self.shared_texture_enabled as i32,
             external_begin_frame_enabled: self.external_begin_frame_enabled as i32,
             window: self.window,
+            bounds: _cef_rect_t {
+                x: self.x as i32, // @TODO
+                y: self.y as i32,
+                width: self.width as i32,
+                height: self.height as i32,
+            },
         }
     }
 }

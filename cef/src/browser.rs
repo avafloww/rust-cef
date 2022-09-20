@@ -165,7 +165,7 @@ impl Browser {
 
     pub fn get_frame_count(&self) -> usize {
         if let Some(func) = self.ptr.as_ref().get_frame_count {
-            unsafe { func(self.ptr.get()) }
+            unsafe { func(self.ptr.get()) as usize }
         } else {
             0
         }
@@ -179,7 +179,7 @@ impl Browser {
                 let mut count = 0;
                 func(self.ptr.get(), &mut count, identifiers.as_mut_ptr());
 
-                identifiers.resize(count, 0);
+                identifiers.resize(count as usize, 0);
                 identifiers
             }
         } else {

@@ -138,7 +138,7 @@ impl<'a> Default for BrowserSettings<'a> {
 impl<'a> BrowserSettings<'a> {
     pub(crate) fn to_cef(&self) -> cef_browser_settings_t {
         cef_browser_settings_t {
-            size: std::mem::size_of::<cef_browser_settings_t>(),
+            size: std::mem::size_of::<cef_browser_settings_t>() as u64,
             windowless_frame_rate: self.windowless_frame_rate,
             standard_font_family: CefString::convert_str_to_cef(self.standard_font_family),
             fixed_font_family: CefString::convert_str_to_cef(self.fixed_font_family),
@@ -158,12 +158,12 @@ impl<'a> BrowserSettings<'a> {
                 self.javascript_access_clipboard,
             ),
             javascript_dom_paste: optional_bool_to_cef_state(self.javascript_dom_paste),
-            plugins: optional_bool_to_cef_state(self.plugins),
-            universal_access_from_file_urls: optional_bool_to_cef_state(
-                self.universal_access_from_file_urls,
-            ),
-            file_access_from_file_urls: optional_bool_to_cef_state(self.file_access_from_file_urls),
-            web_security: optional_bool_to_cef_state(self.web_security),
+            // plugins: optional_bool_to_cef_state(self.plugins),
+            // universal_access_from_file_urls: optional_bool_to_cef_state(
+            // self.universal_access_from_file_urls,
+            // ),
+            // file_access_from_file_urls: optional_bool_to_cef_state(self.file_access_from_file_urls),
+            // web_security: optional_bool_to_cef_state(self.web_security),
             image_loading: optional_bool_to_cef_state(self.image_loading),
             image_shrink_standalone_to_fit: optional_bool_to_cef_state(
                 self.image_shrink_standalone_to_fit,
@@ -172,10 +172,12 @@ impl<'a> BrowserSettings<'a> {
             tab_to_links: optional_bool_to_cef_state(self.tab_to_links),
             local_storage: optional_bool_to_cef_state(self.local_storage),
             databases: optional_bool_to_cef_state(self.databases),
-            application_cache: optional_bool_to_cef_state(self.application_cache),
+            // application_cache: optional_bool_to_cef_state(self.application_cache),
             webgl: optional_bool_to_cef_state(self.webgl),
             background_color: self.background_color,
             accept_language_list: CefString::convert_str_to_cef(self.accept_language_list),
+
+            chrome_status_bubble: optional_bool_to_cef_state(Some(false)), // @TODO
         }
     }
 }

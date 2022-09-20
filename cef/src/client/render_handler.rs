@@ -345,21 +345,31 @@ impl<T: RenderHandler> ToCef<cef_render_handler_t> for Arc<T> {
                 get_screen_info: Some(RenderHandlerWrapper::<T>::get_screen_info),
                 on_popup_show: Some(RenderHandlerWrapper::<T>::on_popup_show),
                 on_popup_size: Some(RenderHandlerWrapper::<T>::on_popup_size),
-                on_paint: Some(RenderHandlerWrapper::<T>::on_paint),
-                on_accelerated_paint: Some(RenderHandlerWrapper::<T>::on_accelerated_paint),
-                on_cursor_change: Some(RenderHandlerWrapper::<T>::on_cursor_change),
+                // @TODO
+                // on_paint: Some(RenderHandlerWrapper::<T>::on_paint),
+                on_paint: None,
+                // @TODO
+                // on_accelerated_paint: Some(RenderHandlerWrapper::<T>::on_accelerated_paint),
+                on_accelerated_paint: None,
+                // on_cursor_change: Some(RenderHandlerWrapper::<T>::on_cursor_change),
                 start_dragging: Some(RenderHandlerWrapper::<T>::start_dragging),
                 update_drag_cursor: Some(RenderHandlerWrapper::<T>::update_drag_cursor),
                 on_scroll_offset_changed: Some(RenderHandlerWrapper::<T>::on_scroll_offset_changed),
-                on_ime_composition_range_changed: Some(
-                    RenderHandlerWrapper::<T>::on_ime_composition_range_changed,
-                ),
+                // @TODO
+                // on_ime_composition_range_changed: Some(
+                // RenderHandlerWrapper::<T>::on_ime_composition_range_changed,
+                // ),
+                on_ime_composition_range_changed: None,
                 on_text_selection_changed: Some(
                     RenderHandlerWrapper::<T>::on_text_selection_changed,
                 ),
                 on_virtual_keyboard_requested: Some(
                     RenderHandlerWrapper::<T>::on_virtual_keyboard_requested,
                 ),
+
+                // @TODO
+                get_touch_handle_size: None,
+                on_touch_handle_state_changed: None,
             },
             internal: self.clone(),
         })

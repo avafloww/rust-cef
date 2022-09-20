@@ -9,11 +9,13 @@ pub use render_handler::*;
 use crate::ptr::{wrap_ptr, BaseRefCountedExt, WrapperFor};
 use crate::ToCef;
 use cef_sys::{
-    cef_audio_handler_t, cef_browser_t, cef_client_t, cef_context_menu_handler_t,
-    cef_dialog_handler_t, cef_display_handler_t, cef_download_handler_t, cef_drag_handler_t,
-    cef_find_handler_t, cef_focus_handler_t, cef_jsdialog_handler_t, cef_keyboard_handler_t,
-    cef_life_span_handler_t, cef_load_handler_t, cef_process_id_t, cef_process_message_t,
-    cef_render_handler_t, cef_request_handler_t,
+    cef_audio_handler_t, cef_browser_t, cef_client_t, cef_command_handler_t,
+    cef_context_menu_handler_t, cef_dialog_handler_t, cef_display_handler_t,
+    cef_download_handler_t, cef_drag_handler_t, cef_find_handler_t, cef_focus_handler_t,
+    cef_frame_handler_t, cef_frame_t, cef_jsdialog_handler_t, cef_keyboard_handler_t,
+    cef_life_span_handler_t, cef_load_handler_t, cef_permission_handler_t, cef_print_handler_t,
+    cef_process_id_t, cef_process_message_t, cef_render_handler_t, cef_request_handler_t,
+    cef_window_open_disposition_t,
 };
 use std::ptr::null_mut;
 use std::sync::Arc;
@@ -132,10 +134,31 @@ impl<T: Client> ClientWrapper<T> {
     extern "C" fn on_process_message_received(
         _client: *mut cef_client_t,
         _browser: *mut cef_browser_t,
+        _frame: *mut cef_frame_t,
         _source_process: cef_process_id_t,
         _message: *mut cef_process_message_t,
     ) -> ::std::os::raw::c_int {
         0
+    }
+
+    // @TODO
+
+    extern "C" fn get_command_handler(_client: *mut cef_client_t) -> *mut cef_command_handler_t {
+        null_mut()
+    }
+
+    extern "C" fn get_frame_handler(_client: *mut cef_client_t) -> *mut cef_frame_handler_t {
+        null_mut()
+    }
+
+    extern "C" fn get_permission_handler(
+        _client: *mut cef_client_t,
+    ) -> *mut cef_permission_handler_t {
+        null_mut()
+    }
+
+    extern "C" fn get_print_handler(_client: *mut cef_client_t) -> *mut cef_print_handler_t {
+        null_mut()
     }
 }
 impl<T: Client> ToCef<cef_client_t> for Arc<T> {
@@ -158,6 +181,10 @@ impl<T: Client> ToCef<cef_client_t> for Arc<T> {
                 get_render_handler: Some(ClientWrapper::<T>::get_render_handler),
                 get_request_handler: Some(ClientWrapper::<T>::get_request_handler),
                 on_process_message_received: Some(ClientWrapper::<T>::on_process_message_received),
+                get_command_handler: Some(ClientWrapper::<T>::get_command_handler),
+                get_frame_handler: Some(ClientWrapper::<T>::get_frame_handler),
+                get_permission_handler: Some(ClientWrapper::<T>::get_permission_handler),
+                get_print_handler: Some(ClientWrapper::<T>::get_print_handler),
             },
             internal: self.clone(),
         })

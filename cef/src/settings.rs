@@ -67,7 +67,7 @@ impl<'a> Default for Settings<'a> {
 impl<'a> Settings<'a> {
     pub(crate) fn to_cef(&self) -> cef_settings_t {
         cef_settings_t {
-            size: std::mem::size_of::<cef_settings_t>() as u64,
+            size: std::mem::size_of::<cef_settings_t>(),
             no_sandbox: self.no_sandbox as c_int,
             browser_subprocess_path: CefString::convert_str_to_cef(self.browser_subprocess_path),
             framework_dir_path: CefString::convert_str_to_cef(self.framework_dir_path),

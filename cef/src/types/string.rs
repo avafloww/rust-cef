@@ -48,7 +48,7 @@ impl CefStringUTF16 {
         }
 
         cef_string_utf16_t {
-            length: self.str.len() as u64,
+            length: self.str.len(),
             str_: self.str.into_raw(),
             dtor: Some(free_str),
         }

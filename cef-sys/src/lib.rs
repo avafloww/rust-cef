@@ -5,12 +5,14 @@
     dead_code,
     clippy::all
 )]
-#[cfg(not(target_os = "windows"))]
-#[link(name = "cef", kind = "dynamic")]
-mod bindings;
+// #[cfg(not(target_os = "windows"))]
+// #[link(name = "cef", kind = "dynamic")]
+// mod bindings;
 
+// #[cfg(not(target_os = "windows"))]
+// pub use bindings::*;
 #[cfg(not(target_os = "windows"))]
-pub use bindings::*;
+compile_error!("this fork of rust-cef is only supported on Windows currently");
 
 #[allow(
     non_snake_case,

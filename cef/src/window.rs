@@ -138,7 +138,7 @@ impl<'a> Default for BrowserSettings<'a> {
 impl<'a> BrowserSettings<'a> {
     pub(crate) fn to_cef(&self) -> cef_browser_settings_t {
         cef_browser_settings_t {
-            size: std::mem::size_of::<cef_browser_settings_t>() as u64,
+            size: std::mem::size_of::<cef_browser_settings_t>(),
             windowless_frame_rate: self.windowless_frame_rate,
             standard_font_family: CefString::convert_str_to_cef(self.standard_font_family),
             fixed_font_family: CefString::convert_str_to_cef(self.fixed_font_family),

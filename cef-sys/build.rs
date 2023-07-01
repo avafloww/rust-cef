@@ -4,14 +4,14 @@ use std::path::Path;
 enum Platform {
     Windows,
     // Mac, // TODO - enable once mac has been tested
-    Linux,
+    // Linux,
 }
 
 fn get_platform() -> Platform {
     match std::env::var("TARGET").unwrap().split('-').nth(2).unwrap() {
         "win32" | "windows" => Platform::Windows,
         // "darwin" => Platform::Mac,
-        "linux" => Platform::Linux,
+        // "linux" => Platform::Linux,
         other => panic!("Sorry, platform \"{}\" is not supported by CEF.", other),
     }
 }
@@ -31,7 +31,7 @@ fn main() {
     // Inform rust what to link
     match get_platform() {
         Platform::Windows => println!("cargo:rustc-link-lib=libcef"),
-        Platform::Linux => println!("cargo:rustc-link-lib=cef"),
+        // Platform::Linux => println!("cargo:rustc-link-lib=cef"),
     };
 
     println!("Path: {:?}", source_dir);

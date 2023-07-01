@@ -2,8 +2,8 @@ use cef_sys::cef_range_t;
 
 #[derive(Clone, Debug)]
 pub struct CefRange {
-    pub from: i32,
-    pub to: i32,
+    pub from: u32,
+    pub to: u32,
 }
 impl CefRange {
     pub(crate) fn from_ptr(raw: *const cef_range_t) -> Self {

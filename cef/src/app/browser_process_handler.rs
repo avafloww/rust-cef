@@ -99,6 +99,7 @@ impl<T: BrowserProcessHandler> ToCef<cef_browser_process_handler_t> for Arc<T> {
                 // @TODO
                 get_default_client: None,
                 on_schedule_message_pump_work: None,
+                on_register_custom_preferences: None,
             },
             internal: self.clone(),
         })
